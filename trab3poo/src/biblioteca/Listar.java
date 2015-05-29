@@ -3,7 +3,12 @@ package biblioteca;
 import java.io.*;
 import java.util.StringTokenizer;
 
+// A classe lista imprime o arquivo correspondente
+
 public class Listar {
+
+    // O metodo 'ListarUsuario' imprime toda o arquivo de usuarios
+
     public void ListarUsuarios() {
         String str;
         StringTokenizer st;
@@ -18,20 +23,19 @@ public class Listar {
 
             System.out.println("\t" + "USUARIOS");
 
-            //System.out.println("Nome" + "\t" + "Email"+ "\t" + "\t" + "\t" + "Area de atuacao"+ "\t" + "Curso"+ "\t" + "\t" + "Categoria");
-
             while(str != null) {
 
                 st = new StringTokenizer(str, ",");
 
                 st.nextToken();
 
+                // Cria as strings para pegar os dados da linha do arquivo correspondente
+
                 String Nome = st.nextToken();
                 String Email = st.nextToken();
                 String AreaAtuacao = st.nextToken();
                 String Curso = st.nextToken();
                 String Categoria = st.nextToken();
-
 
                 System.out.print(Nome + "\t");
                 System.out.print(Email + "\t");
@@ -42,6 +46,7 @@ public class Listar {
                 if(Curso.charAt(0) != ' ') {
                     System.out.print(Curso + "\t");
                 }
+
                 System.out.println(Categoria);
 
                 str = buffer.readLine();
@@ -50,6 +55,8 @@ public class Listar {
             System.out.println("Erro ao escrever no arquivo");
         }
     }
+
+    // O metodo 'ListarLivros' imprime toda o arquivo de livros
 
     public void ListarLivros() {
         String str;
@@ -65,6 +72,8 @@ public class Listar {
 
             str = buffer.readLine();
 
+            // Cria as strings para pegar os dados da linha do arquivo correspondente
+
             while(str != null) {
 
                 st = new StringTokenizer(str, ",");
@@ -72,6 +81,8 @@ public class Listar {
                 String Titulo = st.nextToken();
                 String Autor = st.nextToken();
                 String Editora = st.nextToken();
+
+                // Imprime as strings
 
                 System.out.print(Titulo + "\t");
                 System.out.print(Autor + "\t");
@@ -83,6 +94,8 @@ public class Listar {
             System.out.println("Erro ao escrever no arquivo");
         }
     }
+
+    // O metodo 'ListarEmprestimos' imprime toda o arquivo de emprestimos    
 
     public void ListarEmprestimos() {
         String str;
@@ -102,12 +115,15 @@ public class Listar {
 
                 st = new StringTokenizer(str, ",");
 
+                // Cria as strings para pegar os dados da linha do arquivo correspondente
+
                 String Email = st.nextToken();
                 String Data = st.nextToken();
                 String Titulo = st.nextToken();
                 String Autor = st.nextToken();
                 String Editora = st.nextToken();
 
+                // Imprime as strings
                 if(Email.charAt(0) != '*') {
                     System.out.print(Email + "\t");
                     System.out.print(Data + "\t");

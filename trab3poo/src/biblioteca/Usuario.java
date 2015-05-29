@@ -2,6 +2,8 @@ package biblioteca;
 
 import java.util.Scanner;
 
+/* Classe usuario possui os dados do sistema relativos ao usuario e as funcoes para inicializar essses dados */
+
 public class Usuario {
     int Flag = 0;
     String Nome;
@@ -19,6 +21,8 @@ public class Usuario {
     String categoria = "Professor";
     String categoria2 = "Aluno";
     String categoria3 = "Comunidade";
+
+    // Funcoes que inicializam os dados
 
     public void setNome() {
         System.out.printf("Nome: ");
@@ -53,7 +57,12 @@ public class Usuario {
         Senha = ler.nextInt();
     }
 
+    // Funcao que seleciona o tipo de usuario e preenche a string que sera armazenada no arquivo
+    // Cada tipo de usuario possui strings diferentes pois cada categoria de usuario possui atributos diferentes
+
     public void SelecionaTipoCadastro(Usuario user){
+
+        // se for 'Professor' chama as funcoes setNome, setEmail, setAreaAtuacao e setSenha
 
         user.setCategoria();
         if(Categoria.equals(categoria)){
@@ -63,6 +72,9 @@ public class Usuario {
             user.setSenha();
             ColocaArquivo = Flag + "," + Nome + "," + Email + "," + AreaAtuacao + "," + " ," + Categoria + "," + Senha + "\n";
         }
+        
+        // se for 'Aluno' chama as funcoes setNome, setEmail, setCurso e setSenha
+
         else if(Categoria.equals(categoria2)){
             user.setNome();
             user.setEmail();
@@ -70,15 +82,19 @@ public class Usuario {
             user.setSenha();
             ColocaArquivo = Flag + "," + Nome + "," + Email + "," + " ," + Curso + "," + Categoria + "," + Senha + "\n";
         }
+
+        // se for 'Comunidade' chama as funcoes setNome, setEmail e setSenha
+
         else if(Categoria.equals(categoria3)){
             user.setNome();
             user.setEmail();
             user.setSenha();
             ColocaArquivo = Flag + "," + Nome + "," + Email + "," + " ," + " ," + Categoria + "," + Senha + "\n";
         }
-        else {
-            System.out.println("Categoria invalida !");
-        }
 
+        // Caso a categoria seja invalida
+
+        else
+            System.out.println("Categoria invalida !");
     }
 }

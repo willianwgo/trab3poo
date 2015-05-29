@@ -35,7 +35,7 @@ public class Livro {
     
     //retorna string pronta para salvar no arquivo -> livros.csv
     public String getLivro() {
-        return titulo + "," + autor + "," + editora + "," + permissao + "," + "disponibilidade" + "\n";
+        return titulo + "," + autor + "," + editora + "," + permissao + "," + disponibilidade + "\n";
     }
 
 }

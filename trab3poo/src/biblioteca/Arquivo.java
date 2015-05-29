@@ -2,15 +2,41 @@ package biblioteca;
 
 import java.io.*;
 
+// Classe Arquivo escreve a string 
+
 public class Arquivo {
+
+    // Strings que armazenam os tipos de usuarios
+
     String tipo = "Usuarios";
     String tipo2 = "Livros";
     String tipo3 = "Emprestimos";
 
+    // Abre o arquivo 
+
     FileWriter arquivo;
     BufferedWriter buff;
 
+    //cria arquivos iniciais
+    public static void criarArquivos() {
+        try {
+            FileWriter arq;
+            arq = new FileWriter("usuarios.csv", true);
+            arq = new FileWriter("livros.csv", true);
+            arq = new FileWriter("emprestimos.csv", true);
+            arq = new FileWriter("suspensao.csv", true);
+        }
+        catch(IOException ex){
+            System.out.println("Erro ao criar arquivos");
+        }
+    }
+
+    // Escreve uma string no arquivo correspondente a categoria do usuario
+
     public void EscreverArquivo(String TipoArquivo, String str){
+
+        // Seleciona a string do tipo 'Professor'
+
         if(TipoArquivo.equals(tipo)){
             try{
                 arquivo = new FileWriter("usuarios.csv", true);
@@ -20,6 +46,9 @@ public class Arquivo {
                 System.out.println("Erro ao abrir o arquivo");
             }
         }
+
+        // Seleciona a string do tipo 'Aluno'
+
         else if(TipoArquivo.equals(tipo2)){
             try{
                 arquivo = new FileWriter("livros.csv", true);
@@ -29,6 +58,9 @@ public class Arquivo {
                 System.out.println("Erro ao abrir o arquivo");
             }
         }
+
+        // Seleciona a string do tipo 'Comunidade'
+
         else if(TipoArquivo.equals(tipo3)){
             try{
                 arquivo = new FileWriter("emprestimos.csv", true);
@@ -39,6 +71,8 @@ public class Arquivo {
             }
         }
 
+        // Fecha o arquivo aberto anteriormente
+
         try {
             buff.write(str);
             buff.close();
@@ -48,6 +82,7 @@ public class Arquivo {
         }
     }
 
+    // Escreve no arquivo a data de suspensao
     public void escreverSuspensao(String str) {
         try{
             arquivo = new FileWriter("suspensao.csv", true);

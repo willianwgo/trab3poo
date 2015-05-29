@@ -16,6 +16,7 @@ public class Verifica {
         this.email = email;
     }
 
+    //verifica login de administrador
     public boolean login() {
         Scanner in = new Scanner(System.in);
         String str;
@@ -51,6 +52,7 @@ public class Verifica {
         return false;
     }
 
+    //retorna catagoria do usuario -> aluno/professor/comunidade
     private String getCategoria() {
         String str;
         StringTokenizer st;
@@ -62,6 +64,7 @@ public class Verifica {
 
             str = buffer.readLine();
 
+            //busca usuario pelo email
             while(str != null) {
                 st = new StringTokenizer(str, ",");
                 st.nextToken();
@@ -69,6 +72,7 @@ public class Verifica {
                 if (st.nextToken().equals(email)) {
                     st.nextToken();
                     st.nextToken();
+                    //retorna a categoria
                     return st.nextToken();
                 }
                 str = buffer.readLine();
@@ -79,6 +83,7 @@ public class Verifica {
         return null;
     }
 
+    //se usuario suspenso, retorna quantos dias de suspensao
     private int getSuspenso() {
         String str;
         StringTokenizer st;
@@ -91,11 +96,13 @@ public class Verifica {
 
             str = buffer.readLine();
 
+            //busca usuario pelo email
             while(str != null) {
                 st = new StringTokenizer(str, ",");
                 suspenso = Integer.parseInt(st.nextToken());
                 st.nextToken();
                 if (st.nextToken().equals(email)) {
+                    //retorna dias de suspensao
                     return suspenso;
                 }
                 str = buffer.readLine();
@@ -106,6 +113,7 @@ public class Verifica {
         return -1;
     }
 
+    //retorna quantos emprestimos o usuario realizou
     private int getQuantidadeLivros() {
         String str;
         StringTokenizer st;
@@ -119,6 +127,7 @@ public class Verifica {
 
             str = buffer.readLine();
 
+            //busca usuario pelo email e conta numero de emprestimo
             while(str != null) {
                 st = new StringTokenizer(str, ",");
 
@@ -130,9 +139,11 @@ public class Verifica {
         }
         catch (IOException e) {System.out.println("Error");}
 
+        //retorna numero de emprestimos
         return quantidade;
     }
 
+    //realiza o emprestimo de livro
     public boolean livro(String titulo, String autor, String editora) {
         try {
             //ver se esta suspenso, se nao estorou o limite, aluno/comunidade/prof
@@ -140,11 +151,13 @@ public class Verifica {
             int quantidade = getQuantidadeLivros();
             String categoria = getCategoria();
 
+            //verifica suspensao
             if(suspenso == 1) {
                 System.out.println("Usuario suspenso por atraso na entrega de livros.");
                 return false;
             }
 
+            //verifica categoria e compara se esta no limite de emprestimo
             if(categoria.equals("Comunidade")) {
                 if(quantidade == 2) {
                     System.out.println("Limite de emprestimos por usuario.");
@@ -195,6 +208,7 @@ public class Verifica {
 
                 StringTokenizer st = new StringTokenizer(str, ",");
 
+                //testa se encontrou o livro, se encontrou confere se o livro pode ser emprestado e realiza o emprestimo
                 if (st.nextToken().equals(titulo)) {
                     if (st.nextToken().equals(autor)) {
                         if (st.nextToken().equals(editora)) {
@@ -222,7 +236,7 @@ public class Verifica {
                         }
                     }
                 }
-                do {
+                do {    //loop para chegar no final da linha
                     c = (char) livros.read();
                 }
                 while (c != '\n');
@@ -232,6 +246,7 @@ public class Verifica {
         return false;
     }
 
+    //verifica se usuario tem livros atrasados, marcando ele como suspenso, ou removendo sua suspensao
     public int atraso() {
         String str, data;
         StringTokenizer st, st2;
@@ -243,6 +258,8 @@ public class Verifica {
             is = new FileInputStream("emprestimos.csv");
             isr = new InputStreamReader(is);
             buffer = new BufferedReader(isr);
+
+            //abre o arquivo emprestimos.csv e imprime na tela casa haja algum livro em atraso
 
             str = buffer.readLine();
 
@@ -264,6 +281,7 @@ public class Verifica {
                 str = buffer.readLine();
             }
 
+            //caso haja atraso, o usuario eh marcado e nao pode mais realizar emprestimo
             RandomAccessFile usuarios = new RandomAccessFile("usuarios.csv", "rw");
             long byteoffset;
 
@@ -292,6 +310,7 @@ public class Verifica {
                 st.nextToken();
                 st.nextToken();
 
+                    //procura usuario pelo email e marca como suspenso
                     if (st.nextToken().equals(email)) {
                         if(maior != 0) {
                             usuarios.seek(byteoffset);
@@ -301,6 +320,7 @@ public class Verifica {
                     }
             }
 
+            //verifica se usuario esta comprindo suspensao, caso o tempo tenha terminado, ele eh liberado para realizar emprestimo
             if(maior == 0) {
                 RandomAccessFile suspensao = new RandomAccessFile("suspensao.csv", "rw");
 
@@ -333,7 +353,7 @@ public class Verifica {
                                     suspensao.seek(b);
                                     suspensao.writeBytes("*");
                                     usuarios.seek(byteoffset);
-                                    usuarios.writeBytes("0"); //-> suspenso
+                                    usuarios.writeBytes("0"); //-> nao suspenso
                                     break;
                                 }
                             }
@@ -347,6 +367,7 @@ public class Verifica {
         return maior;
     }
 
+    //calcula quantos dia o usuario esta atrasado na entrega de algum livro
     private int calculaAtraso(String data) {
         int ano, mes, dia, atraso;
 
@@ -368,6 +389,7 @@ public class Verifica {
 
     }
 
+    //metodo que imprimi uma mensagem com dias suspensou ou em dia com a biblioteca
     public void suspenso(int s) {
         if(s != 0) {
             System.out.println("Voce esta suspenso por " + s + " dias.");
@@ -377,6 +399,7 @@ public class Verifica {
         }
     }
 
+    //devolucao de livro
     public boolean devolucao(String titulo, String autor, String editora, int suspenso) {
         try {
             String str, data;
@@ -386,6 +409,8 @@ public class Verifica {
 
             RandomAccessFile emprestimos = new RandomAccessFile("emprestimos.csv", "rw");
 
+            //abre o arquivo emprestimos.csv e busca pelo emprestimo do usuario, se encontrar faz a remocao marcando o primeiro byte
+            //com '*'
             while (true) {
                 long byteoffset = emprestimos.getFilePointer();
                 int i = emprestimos.read();
@@ -422,6 +447,7 @@ public class Verifica {
             }
 
             //abrir livros -> e marcar como disponivel;
+            //se caso tiver com atraso na devolucao, escreve no arquivo suspensao.csv o dia em que a suspensao ira terminar
             RandomAccessFile livros = new RandomAccessFile("livros.csv", "rw");
 
             while (true) {
@@ -459,7 +485,6 @@ public class Verifica {
                                     livros.writeBytes("1"); //-> grava 1 == disponivel para emprestimo
                                     System.out.println("Devolucao realizada");
                                     if(suspenso != 0) {
-                                        //Arquivo arq = new Arquivo();
                                         data = Sistema.dataSuspensao(suspenso);
                                         arq.escreverSuspensao(email + "," + data + "/" + "\n");
                                     }
