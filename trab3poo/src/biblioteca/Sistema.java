@@ -1,6 +1,5 @@
 package biblioteca;
 
-import java.util.Calendar;
 import java.util.Scanner;
 
 public class Sistema {
@@ -9,7 +8,7 @@ public class Sistema {
 
 	//mostra menu ao usuario
 	public void menu() {
-        Arquivo.criarArquivos();
+        //Arquivo.criarArquivos();
         System.out.println("1 - Cadastro de novo usuario\n2 - Entrar como Administrador\n3 - Entrar como Usuario\n0 - Sair");
         opcao = entrada.nextInt();
 
@@ -168,10 +167,13 @@ public class Sistema {
         }
 
 		//obtem a data do sistema
-        Calendar c = Calendar.getInstance();
-        ano = c.get(Calendar.YEAR);
-        mes = c.get(Calendar.MONTH)+1;
-        dia = c.get(Calendar.DAY_OF_MONTH);
+        //Calendar c = Calendar.getInstance();
+        //ano = c.get(Calendar.YEAR);
+        //mes = c.get(Calendar.MONTH)+1;
+        //dia = c.get(Calendar.DAY_OF_MONTH);
+        ano = Calendario.getAno();
+        mes = Calendario.getMes();
+        dia = Calendario.getDia();
 
 		//realiza os calculos para obter a data de devolucao
         if(tipo == 1 || tipo == 3) {
@@ -244,26 +246,18 @@ public class Sistema {
 		verifica.devolucao(titulo, autor, editora, suspenso);
     }
 
-	//imprime na tela data atualizada
-    public static void getTime() {
-        Calendar c = Calendar.getInstance();
-
-        System.out.print("Data do sistema: ");
-        System.out.print(c.get(Calendar.DAY_OF_MONTH) + "/");
-        System.out.print(1+c.get(Calendar.MONTH) + "/");
-        System.out.print(c.get(Calendar.YEAR) + "\n\n");
-
-    }
-
     //calcula a data em que ficara suspenso
     public static String dataSuspensao(int suspenso) {
         int ano, mes, dia, somaDia, i=0, somaMes;
 
         //obtem a data do sistema
-        Calendar c = Calendar.getInstance();
-        ano = c.get(Calendar.YEAR);
-        mes = c.get(Calendar.MONTH)+1;
-        dia = c.get(Calendar.DAY_OF_MONTH);
+        //Calendar c = Calendar.getInstance();
+        //ano = c.get(Calendar.YEAR);
+        //mes = c.get(Calendar.MONTH)+1;
+        //dia = c.get(Calendar.DAY_OF_MONTH);
+        ano = Calendario.getAno();
+        mes = Calendario.getMes();
+        dia = Calendario.getDia();
 
         somaDia = suspenso + dia;
 

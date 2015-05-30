@@ -1,7 +1,6 @@
 package biblioteca;
 
 import java.io.*;
-import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -153,7 +152,7 @@ public class Verifica {
 
             //verifica suspensao
             if(suspenso == 1) {
-                System.out.println("Usuario suspenso por atraso na entrega de livros.");
+                System.out.println("Usuario suspenso por atraso na entrega de livro(s).");
                 return false;
             }
 
@@ -252,8 +251,6 @@ public class Verifica {
         StringTokenizer st, st2;
         int atraso, maior = 0;
 
-        Calendar cal = Calendar.getInstance();
-
         try {
             is = new FileInputStream("emprestimos.csv");
             isr = new InputStreamReader(is);
@@ -270,7 +267,7 @@ public class Verifica {
                     atraso = calculaAtraso(data);
 
                     if(atraso != 0) {
-                        System.out.println("O livro " + st.nextToken() + " esta " + atraso + " dias atrasados");
+                        System.out.println("O livro " + st.nextToken() + " esta " + atraso + " dia(s) atrasado(s)");
                     }
 
                     if(maior < atraso) {
@@ -347,9 +344,10 @@ public class Verifica {
 
                     if (st.nextToken().equals(email)) {
                         st2 = new StringTokenizer(st.nextToken(), "/");
-                        if(Integer.parseInt(st2.nextToken()) == cal.get(Calendar.DAY_OF_MONTH)){
-                            if(Integer.parseInt(st2.nextToken()) == cal.get(Calendar.MONTH)+1){
-                                if(Integer.parseInt(st2.nextToken()) == cal.get(Calendar.YEAR)){
+
+                        if(Integer.parseInt(st2.nextToken()) <= Calendario.getDia()){
+                            if(Integer.parseInt(st2.nextToken()) <= Calendario.getMes()){
+                                if(Integer.parseInt(st2.nextToken()) <= Calendario.getAno()){
                                     suspensao.seek(b);
                                     suspensao.writeBytes("*");
                                     usuarios.seek(byteoffset);
@@ -376,10 +374,8 @@ public class Verifica {
         mes = Integer.parseInt(st.nextToken());
         ano = Integer.parseInt(st.nextToken());
 
-        Calendar c = Calendar.getInstance();
-
-        if(mes == 1+c.get(Calendar.MONTH) && ano == c.get(Calendar.YEAR)) {
-            atraso = c.get(Calendar.DAY_OF_MONTH) - dia;
+        if(mes == Calendario.getMes() && ano == Calendario.getAno()) {
+            atraso = Calendario.getDia() - dia;
             if(atraso > 0) {
                 return atraso;
             }
@@ -389,13 +385,57 @@ public class Verifica {
 
     }
 
-    //metodo que imprimi uma mensagem com dias suspensou ou em dia com a biblioteca
+    //metodo que imprimi uma mensagem com dias suspensao ou em dia com a biblioteca
     public void suspenso(int s) {
         if(s != 0) {
-            System.out.println("Voce esta suspenso por " + s + " dias.");
+            System.out.println("Voce esta suspenso por " + s + " dia(s).");
         }
         else {
-            System.out.println("Voce esta em dia com a biblioteca.");
+            try{
+                RandomAccessFile suspensao = new RandomAccessFile("suspensao.csv", "rw");
+
+                while (true) {
+                    int i = suspensao.read();
+                    char[] seq = new char[500];
+
+                    //testa fim do arquivo
+                    if (i == -1) {
+                        System.out.println("Voce esta em dia com a biblioteca.");
+                        break;
+                    }
+
+                    char c = (char) i;
+
+                    i = 0;
+                    while (c != '\n') {
+                        seq[i++] = c;
+                        c = (char) suspensao.read();
+                    }
+
+                    String str = new String(seq);
+                    StringTokenizer st = new StringTokenizer(str, ",");
+
+                    if (st.nextToken().equals(email)) {
+                        StringTokenizer st2 = new StringTokenizer(st.nextToken(), "/");
+                        int dia = Integer.parseInt(st2.nextToken());
+                        int mes = Integer.parseInt(st2.nextToken());
+                        int ano = Integer.parseInt(st2.nextToken());
+
+                        if(mes == Calendario.getMes() && ano == Calendario.getAno()) {
+                            int atraso = Calendario.getDia() - dia;
+                            if(atraso < 0) {
+                                atraso = -atraso;
+                                System.out.println("Voce esta suspenso por " + atraso + " dia(s).");
+                            }
+                        }
+                        else {
+                            System.out.println("Voce esta em dia com a biblioteca.");
+                        }
+                        break;
+                    }
+                }  
+            }
+            catch (IOException e) {System.out.println("Error");}
         }
     }
 
@@ -456,6 +496,7 @@ public class Verifica {
 
                 //testa fim do arquivo
                 if (i == -1) {
+                    System.out.println("Livro nao encontrado para devolucao");
                     return false;
                 }
 
@@ -490,7 +531,7 @@ public class Verifica {
                                     }
                                     return true;
                                 } else {
-                                    System.out.println("Erro devolucao.");
+                                    System.out.println("Erro devolucao");
                                     return false;
                                 }
                         }
@@ -501,9 +542,9 @@ public class Verifica {
                 }
                 while (c != '\n');
             }
-
+            
         }
-        catch (IOException e) {System.out.println("Error");}
+        catch (IOException e) {System.out.println("Error");}       
         return false;
     }
 

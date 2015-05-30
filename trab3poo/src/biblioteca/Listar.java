@@ -12,6 +12,7 @@ public class Listar {
     public void ListarUsuarios() {
         String str;
         StringTokenizer st;
+        int flag = 0;
 
         try {
 
@@ -24,7 +25,7 @@ public class Listar {
             System.out.println("\t" + "USUARIOS");
 
             while(str != null) {
-
+                flag++;
                 st = new StringTokenizer(str, ",");
 
                 st.nextToken();
@@ -51,6 +52,11 @@ public class Listar {
 
                 str = buffer.readLine();
             }
+            
+            if(flag == 0) {
+                System.out.println("Nenhum usuario cadastrado");
+            }
+            
         }catch(IOException ex) {
             System.out.println("Erro ao escrever no arquivo");
         }
@@ -61,6 +67,7 @@ public class Listar {
     public void ListarLivros() {
         String str;
         StringTokenizer st;
+        int flag=0;
 
         try {
 
@@ -75,7 +82,7 @@ public class Listar {
             // Cria as strings para pegar os dados da linha do arquivo correspondente
 
             while(str != null) {
-
+                flag++;
                 st = new StringTokenizer(str, ",");
 
                 String Titulo = st.nextToken();
@@ -90,6 +97,11 @@ public class Listar {
 
                 str = buffer.readLine();
             }
+            
+            if(flag == 0) {
+                System.out.println("Nenhum livro cadastrado");
+            }
+                        
         }catch(IOException ex) {
             System.out.println("Erro ao escrever no arquivo");
         }
@@ -100,6 +112,7 @@ public class Listar {
     public void ListarEmprestimos() {
         String str;
         StringTokenizer st;
+        int flag=0;
 
         try {
 
@@ -112,7 +125,7 @@ public class Listar {
             System.out.println("\t" + "LISTA DE EMPRESTIMOS");
 
             while(str != null) {
-
+                flag++;
                 st = new StringTokenizer(str, ",");
 
                 // Cria as strings para pegar os dados da linha do arquivo correspondente
@@ -133,6 +146,10 @@ public class Listar {
                 }
 
                 str = buffer.readLine();
+            }
+            
+            if(flag == 0) {
+                System.out.println("Nenhum emprestimo realizado");
             }
         }catch(IOException ex) {
             System.out.println("Erro ao escrever no arquivo");
