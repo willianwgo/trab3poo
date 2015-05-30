@@ -1,21 +1,17 @@
-Fúlvio Eduardo Ferreira, 8921051
-Willian Gomes de Oliveira, 8922305
+-Fúlvio Eduardo Ferreira, 8921051
+-Willian Gomes de Oliveira, 8922305
 
 Trabalho feito no linux
 
-Como executar
-
+#Como executar
 Linux:
-
-  -Abra o terminal
-  
-  -Navegue até trab3.jar
-  
-  -Digite: java -jar trab3.jar
+-Abra o terminal
+-Navegue até trab3.jar
+-Digite: java -jar trab3.jar
   
 Windows:
-
-  -Vá até trab3.jar
+-Vá até trab3.jar
+-De dois cliques
   
-  -De dois cliques
+
   
