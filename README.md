@@ -1,5 +1,4 @@
 Fúlvio Eduardo Ferreira, 8921051
-
 Willian Gomes de Oliveira, 8922305
 
 Trabalho feito no linux
