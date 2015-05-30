@@ -3,7 +3,7 @@ Willian Gomes de Oliveira, 8922305
 
 Trabalho feito no linux
 
-**Como executar**
+Como executar
 Linux:
   -Abra o terminal
   -Navegue até trab3.jar
