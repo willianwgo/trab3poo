@@ -20,11 +20,12 @@ public class Arquivo {
     //cria arquivos iniciais
     public static void criarArquivos() {
         try {
-            InputStream is;
-            is = new FileInputStream("usuarios.csv");
-            is = new FileInputStream("livros.csv");
-            is = new FileInputStream("emprestimos.csv");
-            is = new FileInputStream("suspensao.csv");
+            FileWriter is;
+            is = new FileWriter("usuarios.csv");
+            is = new FileWriter("livros.csv");
+            is = new FileWriter("emprestimos.csv");
+            is = new FileWriter("suspensao.csv");
+            is.close();
         }
         catch(IOException ex){
             System.out.println("Erro ao criar arquivos");

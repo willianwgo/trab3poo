@@ -8,7 +8,7 @@ public class Sistema {
 
 	//mostra menu ao usuario
 	public void menu() {
-        //Arquivo.criarArquivos();
+        Arquivo.criarArquivos();
         System.out.println("1 - Cadastro de novo usuario\n2 - Entrar como Administrador\n3 - Entrar como Usuario\n0 - Sair");
         opcao = entrada.nextInt();
 
