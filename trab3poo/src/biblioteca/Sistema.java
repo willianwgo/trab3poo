@@ -8,7 +8,7 @@ public class Sistema {
 
 	//mostra menu ao usuario
 	public void menu() {
-        Arquivo.criarArquivos();
+        //Arquivo.criarArquivos();
         System.out.println("1 - Cadastro de novo usuario\n2 - Entrar como Administrador\n3 - Entrar como Usuario\n0 - Sair");
         opcao = entrada.nextInt();
 
@@ -166,16 +166,11 @@ public class Sistema {
             tipo = 3;
         }
 
-		//obtem a data do sistema
-        //Calendar c = Calendar.getInstance();
-        //ano = c.get(Calendar.YEAR);
-        //mes = c.get(Calendar.MONTH)+1;
-        //dia = c.get(Calendar.DAY_OF_MONTH);
         ano = Calendario.getAno();
         mes = Calendario.getMes();
         dia = Calendario.getDia();
 
-		//realiza os calculos para obter a data de devolucao
+	//realiza os calculos para obter a data de devolucao
         if(tipo == 1 || tipo == 3) {
             if(dia > 15) {
                 dia -= 15;
@@ -213,7 +208,7 @@ public class Sistema {
         entrada.nextLine(); //limpar buffer teclado
 
         //pega entrada do usuario
-		System.out.print("Titulo: ");
+	System.out.print("Titulo: ");
         titulo = entrada.nextLine();
 
         System.out.print("Autor: ");
@@ -222,7 +217,7 @@ public class Sistema {
         System.out.print("Editora: ");
         editora = entrada.nextLine();
 
-		//realiza o emprestimo do livro
+	//realiza o emprestimo do livro
         verifica.livro(titulo, autor, editora);
     }
 
@@ -232,7 +227,7 @@ public class Sistema {
 
         entrada.nextLine(); //limpar buffer teclado
 
-		//pega entradas do usuario
+	//pega entradas do usuario
         System.out.print("Titulo: ");
         titulo = entrada.nextLine();
 
@@ -243,18 +238,13 @@ public class Sistema {
         editora = entrada.nextLine();
 
         //realiza a devolucao do livro
-		verifica.devolucao(titulo, autor, editora, suspenso);
+	verifica.devolucao(titulo, autor, editora, suspenso);
     }
 
     //calcula a data em que ficara suspenso
     public static String dataSuspensao(int suspenso) {
         int ano, mes, dia, somaDia, i=0, somaMes;
 
-        //obtem a data do sistema
-        //Calendar c = Calendar.getInstance();
-        //ano = c.get(Calendar.YEAR);
-        //mes = c.get(Calendar.MONTH)+1;
-        //dia = c.get(Calendar.DAY_OF_MONTH);
         ano = Calendario.getAno();
         mes = Calendario.getMes();
         dia = Calendario.getDia();

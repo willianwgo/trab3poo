@@ -25,7 +25,6 @@ public class Arquivo {
             is = new FileWriter("livros.csv");
             is = new FileWriter("emprestimos.csv");
             is = new FileWriter("suspensao.csv");
-            is.close();
         }
         catch(IOException ex){
             System.out.println("Erro ao criar arquivos");
