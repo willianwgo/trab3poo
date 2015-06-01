@@ -5,15 +5,16 @@ Willian Gomes de Oliveira, 8922305.
 Trabalho feito no linux
 
 Como executar
-Linux:
 - Abra o terminal
 - Navegue até trab3.jar
 - Digite: java -jar trab3.jar
-  
-Windows:
-- Vá até trab3.jar
-- De dois cliques
 
+Como compilar e executar
+- Pelo terminal, navegue até o diretório src
+- digite para compilar: javac *.java
+- digite para executar: java Main
+
+Obs:Para não ocorrer erro na leitura dos arquivos csv, é necessário que estejam no mesmo diretório do Main.class.
 Instruções de funcionamento
 Ao iniciar é necessário definir uma data(dia/mes/ano) para que o programa faça a simulação.
 
