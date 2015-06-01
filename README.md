@@ -15,6 +15,7 @@ Como compilar e executar
 - digite para executar: java Main
 
 Obs:Para não ocorrer erro na leitura dos arquivos csv, é necessário que estejam no mesmo diretório do Main.class.
+
 Instruções de funcionamento
 
 Ao iniciar é necessário definir uma data(dia/mes/ano) para que o programa faça a simulação.
